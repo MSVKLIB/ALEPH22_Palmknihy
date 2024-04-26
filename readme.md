@@ -15,14 +15,4 @@ Postup:
 Základní nastavení
 Pro eknihy máme nastavenu dílčí knihovnu EBOOK, sbírku EREAD, jednotky mají svůj status (75) a procesní status (EB)
 
-tab_sub_library.lng  nastavena dílčí knihovna pro e-knihy(vč. audioknih) 
-EBOOK 1 MVK50 L E-knihy                        15A   16A   EBOOK MVK50
-Založena kvůli výpůjčním lhůtám a uzavření knihovny. Pro eknihy NELZE brát v úvahu uzavření knihovny dle tab17, vrací se po 31 dnech automaticky poskytovanou službou na straně Palmknihy (pův. Ereading).
 
-Tab15.lng (item statuses)
-15A   ## EB L Palmknihy/Flexibooks půjčená   Y N N N N N N N N    N
-15A   75 ## L E-kniha k vypůjčení            Y N T N N N N N N    N
-tab37 (hold request pickup list) - musi se nastavit, jinak aleph nedovoli pozadavek
-EBOOK ## ## ## # MSVK
-tab40.lng (sbirky) 
- EREAD EBOOK L E-knihy eReading
