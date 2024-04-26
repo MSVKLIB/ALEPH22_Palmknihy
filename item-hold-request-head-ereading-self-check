@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- filename: item-hold-request-head-ereading-self-check -->
+<!-- flexibooks RC3 - pokud v url neni session, doplni se z cookie. Matyas B. 20240206-->
+<html>
+<head>
+<include>meta-tags
+
+<script language="Javascript">
+<!--
+  function my_reset()
+  {
+    for (var i = 0; i< document.form1.elements.length; i++) {
+      if (document.form1.elements[i].name == "author" || 
+          document.form1.elements[i].name == "title" ||
+          document.form1.elements[i].name == "pages" ||
+          document.form1.elements[i].name == "note1" ||
+          document.form1.elements[i].name == "note2") {
+         document.form1.elements[i].value = "";
+      }
+
+      if (document.form1.elements[i].name == "rush_request")
+         document.form1.elements[i].checked = false ; 
+
+    }
+  }
+// -->
+</script>
+
+
+<title>Vypùjèení e-knih a e-audioknih Palmknihy</title>
+
+
+</head>
+
+<body onload="window.document.form1.focus();">
+<script type="text/javascript">
+//flexibooks RC3
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') { c = c.substring(1); }
+    if (c.indexOf(name) == 0) { return c.substring(name.length, c.length); }
+    }
+  return "";
+  }
+if ( !window.location.href.match(/\/F\/[0-9A-Z\-]+/) ) { //url does not contain session, get it from cookie
+   let as=getCookie('ALEPH_SESSION_ID');
+   if ( as ) { //redirect to url with session
+      window.location = window.location.href.replace('/F/','/F/'+as); 
+      }
+   }
+</script>							   
+
+<include>head-1
+<div class="title"> Vypùjèení e-knih a e-audioknih poskytovatele Palmknihy<!--Požadavek Palmknihy $3200- $0700 --></div>
+
+<p align="right">
+<!--
+      <a href="&server_f?func=item-global&doc_library=$0500&doc_number=$0600&year=$2500&volume=$2600&sub_library=$2700&type=$2800&no_loaned=$2900&start_rec_key=$3000&end_rec_key=$3100">
+         <img src="&icon_path/f-back.gif" border=0 
+          alt="Zpìt na knihovní jednotky"></a>
+-->
+</p>
+<form method="post" name="form1" action="&server_f">
+  <input type="hidden" name="func" value="item-hold-request-b">
+  <input type="hidden" name="doc_library" value="$0100">
+  <input type="hidden" name="adm_doc_number" value="$0200">
+  <input type="hidden" name="item_sequence" value="$0300">
+  <input type="hidden" name="bib_request" value="$0800">
+  <input type="hidden" name="year" value="$2500">
+  <input type="hidden" name="volume" value="$2600">
+  <input type="hidden" name="sub_library" value="$2700">
+  <input type="hidden" name="type" value="$2800">
+  <input type="hidden" name="no_loaned" value="$2900">
+  <input type="hidden" name="start_rec_key" value="$3000">
+  <input type="hidden" name="end_rec_key" value="$3100">
+  <input type="hidden" name="token_id" value="$9900">
+
+<table border="0" width="90%" cellspacing="2">
+<!--
+ <tr>
+  <td class="td2" colspan="2" nowrap>$1000<BR>
+                                     $1100<BR>
+                                     $1200<BR>
+                                     $1300<BR>
+                                     $1400<BR>
+  </td>
+ </tr>
+-->
+$4000
+
+<tr>
+   <td class="td2" colspan="2" nowrap>
+      <!--a href="/cgi-bin/ereading.pl?adm_doc_number=$0200&item-sequence=$0300"><img src="&icon_path/f-vypujcit.gif" border="0" alt="Pùjèit e-dokument" style="margin-left: 3em;" ></a-->
+      <a href="/cgi-bin/ereading.pl?adm_doc_number=$0200&item-sequence=$0300" title="Pùjèit e-dokument" style="margin-left: 3em;" class="button1">Vypùjèit</a>
+      <!--a href="&server_f?func=item-global&doc_library=$0500&doc_number=$0600&year=$2500&volume=$2600&sub_library=$2700&type=$2800&no_loaned=$2900&start_rec_key=$3000&end_rec_key=$3100"> <img src="&icon_path/f-back.gif" border="0" style="margin-left: 7em;" alt="Zpìt na knihovní jednotky"></a-->
+      <a href="&server_f?func=item-global&doc_library=$0500&doc_number=$0600&year=$2500&volume=$2600&sub_library=$2700&type=$2800&no_loaned=$2900&start_rec_key=$3000&end_rec_key=$3100" title="Zpìt na knihovní jednotky" style="margin-left: 10em;" class="button1">Zpìt</a>
+   </td>
+</tr>
+
+<table border="0" width="90%" cellspacing="2">
+ <br>
+ <tr>
+  <td colspan="2" class="td2" style="padding-left: 5em;">
+      <br>
+<!--"Pùjèit e-knihu" - struèný návod -->
+<div class="msvk_alert">Vypùjèené e-dokumenty lze èíst/poslouchat POUZE na <a href="https://www.svkos.cz/data/filemanager/source/dokumenty/ctecky_Palmknihy.pdf" target="_blank" class="msvk_alert">vybraných èteèkách</a>, chytrých telefonech a tabletech s operaèním systémem Android a iOS.</div>
+<br>
+<div>Co potøebujete k e-výpùjèce:</div>
+<br>
+<div>1.	Zaregistrovat se na stránkách <a href="https://www.palmknihy.cz/" target="_blank">www.palmknihy.cz</a> pod stejnou e-mailovou adresou, jako jste registrováni v naší knihovnì.</div>
+<div>2.	Stáhnout si do svého telefonu èi tabletu novìjší aplikaci Palmknihy, která je k dispozici zdarma na Google Play a Apple Store.</div>
+<br>
+<!--div> Podrobnìjší návod naleznete <a href="https://www.msvk.cz/data/filemanager/source/dokumenty/N%C3%A1vody%20pdf/Palmknihy%20v%20%C5%A1ipk%C3%A1ch.pdf">zde</a>.</div-->
+<div> Podrobnìjší návod naleznete <a href="https://www.msvk.cz/data/filemanager/source/dokumenty/N%C3%A1vody%20pdf/PALMKNIHY-%20e-v%C3%BDp%C5%AFj%C4%8Dky.pdf" target="_blank">zde</a>.</div>
+<br>
+<div> Po vypùjèení si e-knihu/e-audioknihu mùžete ihned zaèít èíst/poslouchat ve vašem tabletu èi telefonu (v aplikaci Palmknihy).</div>
+<div> Doba výpùjèky je 31 dní, po jejím uplynutí se výpùjèka z aplikace sama vymaže.</div>
+<div> Zároveò mùžete mít maximálnì 7 výpùjèek poskytovatele Palmknihy.</div> 
+
+	<br></td>
+ </tr>
