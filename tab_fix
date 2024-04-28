@@ -1,0 +1,349 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!==============================================================================
+!                                tab_fix
+!                          List of fix_doc programs 
+!==============================================================================
+! Last header change: 20/02/2012
+!
+! TABLE_KEY 1,2
+!
+! HELP
+! Routine name: 
+! Fix routines are "logical names" for defining a group of fix programs.
+! Reserved fix routines also define when the programs are run. For example, it
+! is possible to define a group of fix programs to run when the record is loaded
+! to the server. To de-activate a routine either comment out the line, or
+! delete the line.
+! tab_fix can be up to 500 lines long.
+! The following are ALEPH's reserved routines: 
+! INS, INS2, INSFS, MERGE, MOVE, HOL, P-31, LOCAT, MNG50, ILL-L, ILL-I, DEL, 
+! BNA, AUT, LDMRG, FIL90, and OCLC. 
+!
+! INS is run automatically when a record is updated in the Catalog GUI. 
+!
+! INS2 is run automatically when a record is updated in the Catalog GUI. 
+! The difference is that INS2 is executed just before the update in the 
+! database, and therefore can make use of the document's system number even
+! if it is a new document. However check_doc programs cannot check the outcome
+! of INS2 programs !!!
+!
+! INSFS is run automatically when fast cataloging is done from the
+! administrative modules (Circulation and Acquisitions). This routine
+! is also performed when bibliographic records are created using the Special
+! Request option in the OPAC and when bibliographic records are created in the
+! Course Reading module.
+!
+! MERGE is run automatically when the Paste record function is used
+! in the Catalog GUI.
+!
+! MOVE is run automatically when a HOL record is moved.
+! Note that this instance should be defined in the holdings
+! library (XXX60).
+!
+! LOCAT is run automatically when the Locate record function is used
+! in the Catalog GUI.
+!
+! HOL is run automatically when a HOL record is created, 
+! from the Items list > HOL links > "Create New" button. 
+! Note that this instance should be defined in the holdings
+! library (XXX60).
+!
+! P-31 is run automatically when authority records are loaded to the
+! authority database by the Load authority records batch process (p_manage_31).
+!
+! MNG50 is run automatically when the Create Holdings and Item Records Using
+! Bibliographic Data (p-manage-50) services is used. The fixes are performed
+! on the ADM and HOL records created by the service.
+!
+! ILL-L is run automatically when the Locate function is used in the ILL
+! module (Locate button in the BIB Info tab of the ILL request). Note that this
+! instance should be defined in the ILL library (XXX40).
+!
+! ILL-I is run automatically to fix the ILL Library document that is created
+! by the ue_17 daemon for an incoming lending request. Note that this instance
+! should be defined in the ILL Library (xxx40).
+!
+! M-36 is run on the records in the input file for the Check Input File Against
+! Database (manage-36) service.
+!
+! DEL is run automatically when a record is being deleted (either from the GUI
+! or during a batch process).
+!
+! BNA is run automatically when the Load BNA Records (file-98) service is used
+! to load BNA records.
+!
+! AUT is run when the new derived authority record is created using the "derived
+! new record" function in GUI Cataloging module.
+!
+! LDMRG is run automatically on a bibliographic record from MARCIVE 
+! when it is merged with a matching record in the database.
+!
+! KERSU is run when uploading a record to KERIS (Korean Union 
+! Catalog). The upload can be done using the "Remote"" function in GUI 
+! Cataloging module or by submitting the batch "Upload remote records via
+! Z39.50 (print-30)".
+!
+! KERSD is run when uploading a deleted record to KERIS (Korean Union 
+! Catalog). The upload can be done using the "Remote"" function in GUI 
+! Cataloging module.
+!
+! FIL90 is run by the p-file-90 batch process at an early stage, right after
+! reading a record from the input file. It can be used mainly to create "049"
+! fields that are mandatory for later processing by p-file-90.
+!
+! OCLC is run by the OCLC Server before running the tab_fix section specified in
+! column 4 of tab_oclc. It is also run by the batch process p-file-93 before running
+! the tab_fix section specified in the "Fix Routine" parameter.
+!
+! Program names:
+! Up to 20 program names may be assigned to each user-defined routine name.
+! For fix_doc_tab04 use fix_doc_tab04_nn where nn is the entry in tab04.
+! For fix_doc_merge use the 3rd column parameter as the section name in 
+! tab_merge.
+!
+! Program arguments:
+! Certain fix_doc programs require additional information such as table
+! names. These additional parameters are defined in column 3. The documentation
+! for each fix_doc program indicates whether it takes parameters, and
+! if so, how they should be formatted. Note that if a fix_doc program does not
+! use parameters, it will ignore the contents of column three.
+!
+! To export these routines to the cataloging GUI see
+! $data_root/pc_tab/catalog/fix_doc.<lng>
+! END_HELP
+!
+! COL    1.  5; ALPHA_NUM, UPPER; -;
+!               Routine name;
+!               Routine name;
+! COL    2.  30; ALPHA_NUM, LOWER; _;
+!               Program name;
+!               Program name;   
+! COL    3.  100; ALPHA_NUM; _;
+!               Program arguments;
+!               Program arguments;
+!
+! 1                 2                              3
+!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+INS   fix_doc_sort
+!setrideni poli v ramci bloku 6xx, Matyas Bajger 20180504
+INS   mvk_sort_6xx_fields.pl
+INS   fix_doc_sort_lkr
+INS   fix_doc_tag_008
+INS   fix_doc_tag_008_open_date
+!INS   fix_doc_punctuation_usm
+INS   fix_doc_non_filing_ind
+INS   fix_doc_ref_1
+INS   fix_doc_005
+INS   fix_doc_do_file_08             ue_01.fix
+!INS   fix_doc_fixed_fields
+!INS   fix_doc_usm_222
+INS   fix_doc_lng_from_bib
+INS   fix_doc_zero_ldr_00_04
+INS   fix_doc_create_fmt
+INS   fix_doc_do_file_08             mdtgeo.fix
+!zmena nastaveni history of records. matyas 20192102
+!INS   fix_doc_track                  100##, 245##, 70###
+INS2  fix_doc_track                  001##,072##,080##,100##,24###,6####,7####
+INS   expand_doc_sort                tab_expand_sort_655
+!INS   fix_doc_own_1
+!20181121
+INS   fix_doc_do_file_08             003-check-add.fix
+!*
+INS2  fix_doc_lkr_up
+INS2  fix_doc_001                    NO-OVERWRITE
+! automaticke vlozeni revize
+INS2  fix_doc_own_1
+INS2  fix_doc_005
+INS2  fix_doc_do_file_08             revize0.fix
+INS2  fix_doc_do_file_08             revize1.fix
+INS2  fix_doc_do_file_08             revize2.fix
+INS2  fix_doc_do_file_08             revize3.fix
+INS2  fix_doc_do_file_08             revize4.fix
+INS2  fix_doc_do_file_08             revize5.fix
+INS2  fix_doc_do_file_08             revize_del.fix
+! puvodni verze
+INS2  fix_doc_do_file_08             revize.fix
+INS2  fix_doc_do_file_08             owndel.fix
+!*
+REV   fix_doc_own_1
+REV   fix_doc_005
+REV   fix_doc_do_file_08             revize0.fix
+REV   fix_doc_do_file_08             revize1.fix
+REV   fix_doc_do_file_08             revize2.fix
+REV   fix_doc_do_file_08             revize3.fix
+REV   fix_doc_do_file_08             revize4.fix
+REV   fix_doc_do_file_08             revize5.fix
+REV   fix_doc_do_file_08             revize_del.fix
+!*
+INSFS fix_doc_tag_008
+INSFS fix_doc_tag_008_open_date
+INSFS fix_doc_non_filing_ind
+INSFS fix_doc_sort
+!INSFS fix_doc_punctuation_usm
+!*
+LOCAT fix_doc_merge                  OVERLAY-02
+LOCAT fix_doc_sort
+!*
+!HOLD  fix_doc_create_hol_local_notes tab_fix_local_notes.conf
+!*
+MERGE fix_doc_merge                  OVERLAY-01
+MERGE fix_doc_sort
+!*
+!* Following are user-defined fixes for the catalog GUI (fix_doc.[lng])
+!* and/or batch load.
+!*
+04-01 fix_doc_tab04_01
+!*
+222   fix_doc_usm_222
+!*
+UE_01 fix_doc_ref_1
+UE_01 fix_doc_do_file_08             ue_01.fix
+!*
+ANA   fix_doc_new_ana
+!*
+AUT   fix_doc_new_aut_5
+!*
+REF   fix_doc_ref_1
+!*
+008   fix_doc_tag_008
+!*
+005   fix_doc_005
+!* 
+FIX2  fix_doc_tag_008_open_date
+!*
+PUNC  fix_doc_sort
+PUNC  fix_doc_punctuation_usm
+!*
+RLIN  fix_doc_tag_008
+RLIN  fix_doc_tag_008_open_date
+RLIN  fix_doc_punctuation_usm
+RLIN  fix_doc_005
+RLIN  fix_doc_rlin_1
+RLIN  fix_doc_usm_001
+RLIN  fix_doc_non_filing_ind
+!
+TEST  mvk_sort_6xx_fields.pl
+!*
+OCLC  fix_doc_tag_008_open_date
+OCLC  fix_doc_non_filing_ind
+OCLC  fix_doc_005
+OCLC  fix_doc_usm_001
+OCLC  fix_doc_oclc
+!OCLC  fix_doc_oclc_2
+!OCLC  fix_doc_oclc_retain_001
+!*
+MRCV  fix_doc_usm_001
+MRCV  fix_doc_005
+MRCV  fix_doc_punctuation_usm
+MRCV  fix_doc_non_filing_ind
+!*
+DEL   fix_doc_ldr_sta_delete
+DEL   fix_doc_rug_bip_add_head
+!smaze pole FMT 20181221
+DEL   fix_doc_do_file_08             delete_ldr.fix
+!
+!BNA   fix_doc_do_file_08             generic_fix
+BNA   fix_doc_do_file_08             delete_fields 
+!*
+MAN25 fix_doc_punctuation_usm
+MAN25 fix_doc_001_prefix_sysno       (MVK01)
+!
+TYPE  expand_doc_type                tab_type_config  
+! 
+!CJK   fix_doc_add_pinyin_check_sub9
+!CJK   fix_doc_add_pinyin_insert_sub9
+!CJK   fix_doc_delete_chi_spaces
+!CJK   fix_doc_880
+!CJKR  fix_doc_redo_880
+
+SYSIN fix_doc_001_sysno_inv
+SYS01 fix_doc_001_sysno 
+!
+EXPRT fix_doc_space_char
+EXPRT fix_doc_001_prefix_sysno       (MVK01)
+EXPRT fix_doc_redo_880
+!*
+!* k derivovani novych zaznamu na zaklade definice v tabulce
+!MYFIX fix_doc_new                    TYPE=a25
+!MAB   fix_doc_new                    TYPE=rxx,CHECK-SOURCE=Y
+!
+DC    fix_doc_convit                 FILE=tab_fix_usm2dc
+QDC   fix_doc_convit                 FILE=tab_fix_usm2qdc
+!
+LKR   fix_doc_lkr_up
+!
+SKC   fix_doc_do_file_08             skc.fix
+!
+OAIDC fix_doc_convit                 FILE=tab_fix_usm2dc
+!
+!* OAI pro SKC
+OAISK expand_doc_bib_z30             
+OAISK expand_doc_sort_field          Z30##,h
+OAISK fix_doc_do_file_08             oai_sk.fix
+OAISK fix_doc_sort
+!odstraneni linku na e-vypujcku 20240130
+OAISK fix_doc_do_file_08             del_856.fix
+!
+!* OAI pro CPK
+OAICP expand_doc_bib_z30             TAG=996  ,CONF=expand_doc_bib_z30_cpk
+OAICP expand_doc_sysno
+OAICP fix_doc_do_file_08             oai_cpk.fix
+!yrusi eknihy - pole 996, quasijednotku palmknih a flexibooks.MatyasB20200831
+OAICP fix_doc_do_file_08             del_ebook.fix
+OAICP fix_doc_sort
+!
+!*jednorazova oprava 001, spusteno 1x v unoru 2018
+!NEWID fix_doc_001                    OVERWRITE
+!
+!* fix pro import e-knih Mestske knihovny v Praze, Matyas Bajger 20180627
+MLPEB mvk_eknihy_mlp_import.pl
+MLPEB fix_doc_ref_1
+MLPEB fix_doc_sort
+!ver 22 SP 2274
+MLPEB fix_doc_sort_505
+MLPEB fix_doc_001                    OVERWRITE
+!20181120
+MLPEB fix_doc_do_file_08             mlp_ebooks.fix
+!
+!20181115 - pro rucni upravu zaznamu programem pri importu eknih
+EBOOK fix_doc_001                    OVERWRITE
+EBOOK fix_doc_do_file_08             eknihy.fix
+EBOOK fix_doc_sort
+!20200322 pro totez beletrie
+EBOOB fix_doc_001                    OVERWRITE
+EBOOB fix_doc_do_file_08             eknihy-beletrie.fix
+EBOOB fix_doc_sort
+!20200526 pro hromadnou opravu 001 a pro import Palmknih a Flexibooks
+!20240124 pridan fix pro generovani pole 856 s linkem na e-vypujcku
+EBOOI fix_doc_001                    OVERWRITE
+EBOOI ebookslink2loan.pl
+!
+!2021024 import ebsco e-knih, Matyas Bajger
+EBSCO mvk_ebsco_import.pl
+EBSCO fix_doc_tag_008_open_date
+EBSCO fix_doc_non_filing_ind2
+EBSCO fix_doc_ref_1
+EBSCO fix_doc_lng_from_bib
+EBSCO fix_doc_sort
+EBSCO fix_doc_sort_505
+EBSCO fix_doc_own_1
+!
+!20240114 doplni pole 856 odkaz na e-pujceni palmknihy,flexibooks Matyas B.
+ELINK ebookslink2loan.pl
+!
+!TEST  fix_doc_do_file_08             test.fix
+!TEST  mvk_eknihy_mlp_import.pl
+!TEST  mvk_sort_6xx_fields.pl
+!TEST  expand_doc_bib_z30             
+!TEST   expand_doc_bib_z30
+TEST  ebookslink2loan.pl

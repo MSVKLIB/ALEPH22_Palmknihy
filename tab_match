@@ -1,0 +1,127 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!==============================================================================
+!                            tab_match
+!     Match specifications for the Check Input File Against
+!     Database (manage-36) service and for the check_doc_match
+!     checking routine
+!==============================================================================
+! Last header change: 11/03/2003
+!
+! HELP
+! Note that this table is also used by the following services:
+! Load MARCIVE Records (file-99)
+! OCLC Loader
+! END_HELP
+!
+! TABLE_KEY 1,2,3
+!
+! COL    1.   5; ALPHA_NUM, UPPER; -;
+!                Match code;
+!                Match routine code, each routine performs a particular match.
+!                Reserved match codes:
+!                CAT: This match code is used to specifiy the matching routines
+!                performed by the check_doc_match program;
+! COL    2.  30; ALPHA_NUM, LOWER; _;
+!                Match program;
+!                Following are the available match programs:
+!                - match_doc_uid: Match is based on a direct index (Z11). The
+!                  parameters column (column 3) should contain either the index
+!                  name (column 5 in tab11_ind) or the tag code (column 1 in 
+!                  tab11_ind). For example, if tab11_ind is defined as 
+!                  follows for the ISBN direct index:
+!                  .
+!                  1    2    3     4        5            6           7 8
+!                  !!!!!-!!!!!-!-!!!!!!!!!!-!!!!!-!!!!!!!!!!!!!!!!!!!!-!-!
+!                  020                      ISBN  az
+!                  .
+!                  the parameters for a match based on the ISBN can be defined
+!                  as follows:
+!                  XXX   match_doc_uid                  I-ISBN 
+!                  or
+!                  XXX   match_doc_uid                  T-020 
+!                  Use I-<index code> or T-<tag code>. When using T-<tag code>
+!                  there must be an exact match. If tab11_ind col.1 has 
+!                  020##, this table must have T-020## as well. ;
+!                - match_doc_uid_2: Match is based on a direct index (Z11). The
+!                  parameters column (column 3) should contain the index
+!                  name and the tag code as a single value.  This will only
+!		   work if they are the same (example tag 035 and index 035)
+!                  in tab11_ind. For example, if tab11_ind is defined as 
+!                  follows for the 035 direct index:
+!                  .
+!                  1    2    3     4        5            6           7 8
+!                  !!!!!-!!!!!-!-!!!!!!!!!!-!!!!!-!!!!!!!!!!!!!!!!!!!!-!-!
+!                  035                      035
+!                  .
+!                  the parameters for a match based on the 035 can be defined
+!                  as follows:
+!                  XXX   match_doc_uid_2                035
+!                - match_doc_acc: Match is based on a headings (ACC) index. The
+!                  argument defined in column 3 is a table name. This table
+!                  lists the tags in the record that should be checked against 
+!                  the headings index; 
+!                - match_doc_mab_001: Special program for p_import_mab_2. The
+!                  match is based on a direct index. The program takes always
+!                  tag 001 from the record and matches the value against the
+!                  direct index defined in column 3.
+!                  Example:
+!                  XXX   match_doc_mab_001              I-020
+! COL    3. 100; ALPHA_NUM; _;
+!                Program arguments;
+!                Program arguments: For match_doc_uid this column contains
+!                the index code or the tag code used for the direct match. For
+!                match_doc_acc this column contains the table name of the table
+!                that contains the tags that should be checked against the
+!                headings index. Note that this table must be located in the
+!                library's tab directory;
+!
+! 1                 2                              3
+!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+SFX   match_doc_uid                  T-001
+!
+F99   match_doc_gen                  TYPE=IND,TAG=909,SUBFIELD=a,CODE=909
+!
+YBP   match_doc_uid                  I-ISBN
+RLIN  match_doc_uid                  T-020
+STIDN match_doc_uid                  I-STIDN
+!OCLC  match_doc_uid                  T-020
+OCLC  match_doc_uid                  T-010
+OCLC2 match_doc_uid_2                035
+MRCV  match_doc_uid                  T-909##
+!
+CAT   match_doc_uid                  I-ISBN
+!matyas bajger kontrola 001 duplicit 20180126
+CAT   match_doc_uid                  I-IDN
+!20180126 CAT   match_doc_acc                  tab_match_acc
+!
+!MATCH match_doc_script               
+MATCH match_doc_script               demo
+P36   match_doc_acc                  tab_match_acc
+!
+ISSN  match_doc_gen                  TYPE=IND,TAG=022,SUBFIELD=a,CODE=ISSN
+!
+NTL1  match_doc_script               tab_match_script.ntl1
+!
+QIMP2 match_doc_gen                  TYPE=IND,TAG=020##,CODE=SBN,SUBFIELD=a
+QIMP2 match_doc_gen                  TYPE=IND,TAG=022##,CODE=SSN,SUBFIELD=a
+QIMP2 match_doc_gen                  TYPE=ACC,TAG=245##,CODE=TIT,SUBFIELD=a
+!
+ISBN  match_doc_gen                  TYPE=IND,TAG=020##,CODE=SBN,SUBFIELD=a
+! JR kvuli eReading / FLEXIBOOKS
+FBX   match_doc_gen                  TYPE=IND,TAG=NUM,SUBFIELD=k,CODE=FBX
+ERE   match_doc_gen                  TYPE=IND,TAG=NUM,SUBFIELD=k,CODE=ERE
+BK020 match_doc_script               tab_match_script_020bk
+!E-knihy MK v Praze, jejich ident. cislo, pole MLP, Matyas B. 20180608
+MLPID match_doc_gen                  TYPE=IND,TAG=MLP,CODE=MLP
+!matchovani dle cisla CNB,  Matyas B. 20180608
+CNB   match_doc_gen                  TYPE=IND,TAG=015,SUBFIELD=a,CODE=CNB

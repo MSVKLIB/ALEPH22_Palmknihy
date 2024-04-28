@@ -1,0 +1,89 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!===========================================================================
+!                          tab_hol_item_map
+!
+! Default values and mappings for codes.
+!===========================================================================
+!
+! Last header change: 13/02/2001
+!
+! HELP
+! This table is an example of a table that can be used by the p-manage-50 batch
+! process for the mapping of the supplied bibliographic values into the relevant
+! holdings and/or items values.
+! .
+! The list of valid fields follows. Note that the convention being
+! followed is to use the Z30 field name, except that if a field is valid in
+! both the holdings and item record, the 'Z30-' prefix is omitted.
+! .
+! ____________________________________________
+! FIELD NAME              HOL EQUIVALENT
+! ____________________________________________
+! Z30-BARCODE             none
+! SUB-LIBRARY             852$b
+! Z30-MATERIAL            none
+! Z30-ITEM-STATUS         none
+! Z30-CATALOGER           none
+! Z30-ALPHA               none
+! COLLECTION              852$c
+! CALL-NO-TYPE            852 first indicator
+! CALL-NO                 852$hijklm
+! Z30-CALL-NO-2-TYPE      none
+! Z30-CALL-NO-2           none
+! Z30-DESCRIPTION         none
+! Z30-NOTE-OPAC           none
+! Z30-NOTE-CIRCULATION    none
+! Z30-NOTE-INTERNAL       none
+! Z30-INVENTORY-NUMBER    none
+! Z30-PAGES               none
+! Z30-ITEM-STATISTIC      none
+! Z30-ITEM-PROCESS-STATUS none
+! COPY                    852$t
+! Z30-TEMP-LOCATION       none
+! .
+! Following are the fields specific to holdings records:
+! .
+! _____________
+! FIELD NAME
+! _____________
+! 866-IND (866 indicators)
+! 866-ALPHA
+! 866-TEXT
+! 867-IND (867 indicators)
+! 867-ALPHA
+! 867-TEXT
+! 868-IND (868 indicators)
+! 868-ALPHA
+! 868-TEXT
+! HOL-OWN (for the mapping of the holdings record OWN value)
+! .
+! END_HELP
+!
+! TABLE_KEY 1
+!
+! COL   1.  25; ALPHA_NUM, UPPER; ;
+!               HOL/Z30 Field name;
+!               HOL/Z30 Field name;
+! COL   2.   1; ALPHA {Y,N}; ;
+!               Case-sensitive matching;
+!               Case-sensitive matching;
+! COL   3.  25; ALPHA_NUM; ;
+!               Bibliographic value;
+!               Bibliographic value;
+! COL   4.  50; ALPHA_NUM; ;
+!               HOL/Z30 value;
+!               HOL/Z30 value;
+!
+!          1              2           3                     4
+!!!!!!!!!!!!!!!!!!!!!!!!!-!-!!!!!!!!!!!!!!!!!!!!!!!!!-!!!!!!!!!!!!!!!!!!->
+Z30-CATALOGER             Y ######################### EREADING

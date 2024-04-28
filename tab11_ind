@@ -1,0 +1,87 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!=============================================================================
+!               tab11_ind - Assignment of fields to Direct indexes   
+!=============================================================================
+! Last header change: 12/03/2003
+!
+! HELP
+! The tab11 table is used to assign fields to Direct indexes. Direct indexes 
+! enable the user to retrieve a specific record. A direct index is suited to
+! unique or almost unique identifiers of the record, and serves as quick
+! access to a record.
+! Direct indexes are also used by record loader and union view tables, in
+! order to find possible matching records (candidates).
+! The table is limited to 500 lines.
+! END_HELP
+!
+! COL    1.   5; ALPHA_NUM, UPPER; #;
+!                Field tag;
+!                Document record field code. # can be used for the third to
+!                fifth positions to indicate truncation of numeric additions to
+!                the field code (e.g., 245## for 2451, 2452, 24501);
+! COL    2.   5; ALPHA_NUM; ;
+!                Not in use;
+!                Not in use;
+! COL    3.   1; ALPHA_NUM; ;
+!                Subfield filter;
+!                Subfield to filter. It is used together with column 4. For
+!                example, if this column contains a '2' and column 4 contains
+!                'usm50', then only records with usm50 in subfield 2
+!                will have this field indexed; 
+! COL    4.  10; TEXT; ;
+!                Subfield contents filter;
+!                Subfield contents filter. It is used together with column 3.
+!                For example, if column 3 contains a '2' and this column
+!                contains 'usm50', then only records with usm50 in subfield 2
+!                will have this field indexed. If the contents is prefixed by 
+!                a hyphen (minus), the content is considered negative.      
+!                For example, if column 3 contains a '2' and this column
+!                contains '-usm50', then only records that do not have
+!                usm50 in subfield 2 will have this field indexed.
+!                !!NOTE!! filter text must be entered in lower case
+!                (irrespective of case in the record itself).
+!                Use * to indicate truncated text; use # to
+!                indicate single wild card for text match;
+! COL    5.   5; ALPHA_NUM, UPPER; ;
+!                Index code;
+!                Code of the Direct index file;
+! COL    6.  20; ALPHA_NUM; -;
+!                Subfield(s);
+!                Subfield(s) of the field for indexing. Blank indicates 
+!                entire field. Use minus (-) sign followed by subfields 
+!                to define subfields to be stripped or list the 
+!                subfields to be indexed;
+! COL    7.   1; ALPHA_NUM; ;     
+!                Not in use;
+!                Not in use;
+! COL    8.   1; TEXT {1,2, ,}; ;
+!                Non-filing indicator;
+!                Non-filing indicator for non_filing procedure in tab_filing;
+!        
+! 1    2    3     4        5            6           7 8
+!!!!!-!!!!!-!-!!!!!!!!!!-!!!!!-!!!!!!!!!!!!!!!!!!!!-!-!
+001                      IDN
+Z30##                    BRC   5
+ISB                      ISN
+ISB                      SBN
+ISS                      ISN
+ISS                      SSN
+ISM                      ISN
+ISM                      SBN
+015                      CNB
+!* JR kvuli FLEXIBOOKS, index FBX podle CALL_NO, Z30_COLLECTION = EFLEX
+Z30##       2 eflex      FBX   3
+!* JR kvuli eReading, index ERE podle CALL_NO, Z30_COLLECTION = EREAD
+Z30##       2 eread      ERE   3
+!* E-knihy MK v Praze 20170608  Matyas Bajger!
+MLP##                    MLP

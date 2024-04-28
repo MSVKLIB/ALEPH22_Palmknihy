@@ -1,0 +1,141 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!==============================================================================
+!                           tab_match_script 
+!     Match specifications for Check Input File Against Database (manage-36) 
+!==============================================================================
+! Last header change: 31/08/2002
+!
+! HELP
+! This table is used in order to find "candidate matching records"
+! for record loading, or for union view setup of a catalog that holds 
+! multiple records for the same work.
+! .
+! This table's functionality can be carried out by a table of any
+! name. The name is not set in the programs, it is set in the
+! third column of the tab_match table when match_doc_script
+! is set as the program in column 2.
+! .
+! There are two match programs available:
+!             - match_doc_gen
+!             - match_doc_filter_hvd
+! For match_doc_gen match program there are 3 sections to the 
+! program arguments: TYPE, TAG + SUBFIELD, and CODE. The ACC
+! type can have an additional TRUNCATION argument.
+! - TYPE defines the search method for finding a match:
+!     TYPE = SYS: searches against DB system number, which is 
+!            expressed as CODE=001
+!     TYPE = IND: searches against IND Z11 index
+!     TYPE = ACC: searches against the filing text field of the
+!                 ACC Z01 headings index
+! - TAG + SUBFIELD relates to incoming record only.
+!     The tag content is normalized using the same filing routine 
+!     that is used for IND or ACC code.
+! - CODE index name defines the code of the index that is searched 
+!     in order to find database record.
+! - TRUNCATION=Y can be added to the ACC match type. If this 
+!     argument is present, the match will be performed using a 
+!     truncated search, i.e. the incoming record's field will be 
+!     considered a match if it is contained within the heading.
+! .
+! match_doc_filter_hvd uses the program arguments are
+! SE-TABLE-NAME= and MO-TABLE-NAME=. The match procedure will
+! use the additional table(s) registered here for more specific 
+! matching arguments. The program automatically rejects all
+! matches if the incoming record format is not SE or BK, and 
+! automatically rejects matches if there is a mismatch on the
+! FMT field.
+! .
+! For each argument in this table you can define what will 
+! happen next, depending on the number of candidate records 
+! found in database. In column 3 you set the parameter for
+! number of candidate records (e.g. 20+ means more than 20, 
+! 20- means 20 or less, 0+ means more than none, 0 means
+! none. In column 4 you register the action:
+!   - skip (to skip to the next match set)
+!   - stop (to stop script execution)
+!   - goto <xx> (to jump forwards/backwards to a
+!     different match set <xx>
+!   - <any text> or blank acts in the same manner as skip.
+! END_HELP
+! COL 1. 2; ALPHA_NUM, UPPER; -;
+!             Set ID;   
+!             Match set identifier;
+! COL 2. 30; ALPHA_NUM, LOWER; _;
+!             Program;
+!             Match program name;
+!             Currently available match programs are:
+!             - match_doc_gen
+!             - match_doc_filter_hvd;
+! COL 3. 4; ALPHA_NUM; _;
+!             No.of Records; 
+!             Number of candidate records found in database;
+!             This refers to the number of records in the 
+!             database that match the incoming record. 
+!             You can specify an exact number (e.g. 1), an upper
+!             upper limit (format <nn>-, e.g. 20-) or a lower 
+!             limit (format <nn>+, e.g. 5+).
+!             0+ indicates at least one match, 0 indicates no 
+!             match;
+! COL 4. 10; ALPHA_NUM; _;
+!             Action;
+!             Action;
+!             The action to be taken where the condition of number
+!             of candidate records is true.
+!             Supported actions are: 
+!             - skip (to skip to the next match set)
+!             - stop (to stop script execution)
+!             - goto <xx> (to jump forwards/backwards to a 
+!               different match set <xx>
+!             - <any text> or blank acts in the same manner as 
+!               skip;
+! COL 5. 100; ALPHA_NUM; _;
+!             Program arguments;
+!             Match Program arguments;
+!             1) For match_doc_gen match program there are 3
+!                sections to the program arguments:
+!                TYPE, TAG + SUBFIELD, and CODE.
+!                - TYPE defines the search method for finding a
+!                  match:
+!                  TYPE = SYS: searches against DB system number, 
+!                              which is expressed as CODE=001
+!                  TYPE = IND: searches against IND Z11 index
+!                  TYPE = ACC: searches against filing text of
+!                         ACC Z01 index heading
+!                - TAG + SUBFIELD relates to incoming record only. 
+!                  The tag content is normalized using the same 
+!                  filing routine that is used for IND or ACC 
+!                  code.
+!                - CODE index name defines the code of the index
+!                  that is searched in order to find database 
+!                  record.
+!                ACC match type can have an additional argument,
+!                TRUNCATION=Y. If this argument is present, the 
+!                match will perform a truncated search, i.e. the
+!                incoming record's field will be considered a 
+!                match if it is contained within the heading.
+!             2) For match_doc_filter_hvd program the arguments 
+!                are:
+!                - SE-TABLE-NAME for records that have FMT=SE
+!                - MO-TABLE-NAME for records that have FMT=BK
+!                - if the incoming record has FMT that is not 
+!                  SE or BK, all match candidates are removed
+!                  (i.e. record is no longer considered for
+!                  matching)
+!                - if there is a mismatch in FMT, match candidate
+!                  is removed (record is no longer considered a
+!                  possible match).;
+!1            2                    3      4                5
+!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-!!!!-!!!!!!!!!!-!!!!!!!!!!!!!!!!!!!!>
+01 match_doc_gen                  1    stop       TYPE=IND,TAG=02###,CODE=SBN,SUBFIELD=a
+                                  1+   goto 02
+02 match_doc_filter_hvd           1    stop       MO-TABLE-NAME=tab_weights_020bk
