@@ -13,12 +13,9 @@ function parseHeaders($headers) {
 if(isset($argv[1]) && isset($argv[2])) {
     $user = $argv[1];
     $ebook = $argv[2];
-// testovaci klic:
-//$lib = '4171';
-//$key = 'wb]jd7,}EW(H6J:lZ(mXHzes}nWqjcWY';
-//
-$lib = '5';
-$key = 'phup3SteWUs6Ex3Beqaj7yabrEth4nek';
+//klíč
+$lib = '1234';
+$key = 'abcdefghijklmnopqrstuvwxyz';
 $method = 'POST';
 $time = dechex(time());
 $urlR = '/api/lib_rents';
