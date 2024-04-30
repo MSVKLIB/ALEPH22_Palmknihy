@@ -305,8 +305,8 @@ print $LOGFILE "where Z30_REC_KEY like ",$form{'adm_doc_number'}, " ... ",$form{
 sub mode_ereading {
   print $LOGFILE get_time3(), " BEGIN $mode\n";
 
-  my $er_passkey              = 'phup3SteWUs6Ex3Beqaj7yabrEth4nek';
-  my $er_id                   = '5';
+  my $er_passkey              = 'abcdefghijklmnoprstuvwxzy';
+  my $er_id                   = '1234';
   my $self_check_body_barcode = CGI::param('bar');
     #DEBUG
     #    $er_user = 'rataj%40cuni.cz';
