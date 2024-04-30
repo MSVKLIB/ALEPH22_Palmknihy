@@ -20,10 +20,8 @@ ds="$mvk01_dev/mvk01/scratch"
 export YYYYMMDD=`date +%Y%m%d`
 
 # Autorizační údaje
-#username="4171"
-#password="wb]j"
-username="5"
-password="phup"
+username="1234"
+password="abcd"
 auth_string="$(echo -n "$username:$password" | base64)"
 url="https://core.palmknihy.cz/api/lib_books"
 
